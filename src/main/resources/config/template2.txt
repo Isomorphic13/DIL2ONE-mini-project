@@ -1,0 +1,4 @@
+<#list root as r>
+${r.Region} & ${r.Life_Policy_Count} & ${r.Auto_Policy_Count} & ${r.Home_Policy_Count} \\
+\hline
+</#list>

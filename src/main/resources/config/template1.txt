@@ -1,0 +1,14 @@
+<#list root as r>
+\newpage
+\noindent
+Dear ${r.Customer_ID},
+\vspace{0.3 cm} \\
+as we have seen from the satisfaction survey, you were not satisfied with your ${r.Policy_Type} insurance.
+What could we change in your opinion?
+\noindent We would appreciate your feedback!
+
+\vspace{0.3 cm}
+\noindent
+Sincerely, \\ The ${r.Region} insurance Team, \\
+\today
+</#list>
