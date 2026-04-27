@@ -1,7 +1,3 @@
-package kg.tursunbek;
-
-import kg.tursunbek.data.SqlResult;
-
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -9,26 +5,27 @@ import java.sql.Statement;
 import java.util.*;
 
 /**
- * Class with static method query(kg.tursunbek.DataBase db, String input) that gives result from the query as root kg.tursunbek.data model.
- * The methodMap holds all similar methods of the class. Enables flexibility by writing new actions with other templates.
+ * Class with static method queryFreeMarkerData(DataBase dataBase, String query) that gives the result from a query.
  */
 
-public class Queries {
+public class QueryProcessor {
 
     /**
-     * // TODO - 23.04.26 - tjorven: Create javadoc
      *
-     * @param dataBase the database
-     * @return kg.tursunbek.data
+     * @param dataBase is an instance of a database from which data will be passed to the TemplateProcessor.
+     * @param query is a query to be processed.
+     * @return data, whose structure is designed to passed to Free Marker template engine.
+     * Map<String, String> contains as the key a variable in the template to which will be a passed a value.
+     * For example: Dear &<r.name>, you just bought %<root.product>. Name and product are keys, the values depend on the person and his purchase
      */
-    public static List<Map<String, String>> queryFreeMakerData(DataBase dataBase, String query) {
+    public static List<Map<String, String>> queryFreeMarkerData(DataBase dataBase, String query) {
         SqlResult result = getResult(dataBase, query);
 
         List<Map<String, String>> data = new ArrayList<>();
         List<String> columnNames = result.getColumnNames();
 
         for (List<String> temp : result.getData()) {
-            Map<String, String> subRoot = new HashMap<>();
+            Map<String, String> subRoot = new HashMap<>(); //important point. Collects
 
             for (int i = 0; i < columnNames.size(); i++) {
                 subRoot.put(columnNames.get(i), temp.get(i));
@@ -40,7 +37,14 @@ public class Queries {
         return data;
     }
 
-    public static SqlResult getResult(DataBase dataBase, String query) {
+    /**
+     *
+     * @param dataBase is given from queryFreeMarkerData(DataBase dataBase, String query)
+     * @param query is given from queryFreeMarkerData(DataBase dataBase, String query)
+     * @return a instance of the SqlResult class that contains the data from the query.
+     */
+
+    private static SqlResult getResult(DataBase dataBase, String query) {
         List<List<String>> result = null;
         List<String> columnNames = new ArrayList<>();
 
@@ -57,11 +61,18 @@ public class Queries {
 
             result = getRows(resultSet);
         } catch (SQLException s) {
-            System.err.println("Running Statement in kg.tursunbek.Queries went wrong: " + s.getMessage());
+            System.err.println("Running Statement in Queries went wrong: " + s.getMessage());
         }
 
         return new SqlResult(result, columnNames);
     }
+
+    /**
+     *
+     * @param resultSet contains the result from the JDBC API from a query.
+     * @return List of all rows. Each sublist contain the content of a single row.
+     * @throws SQLException
+     */
 
     private static List<List<String>> getRows(ResultSet resultSet) throws SQLException {
         List<List<String>> result = new ArrayList<>();
@@ -79,9 +90,9 @@ public class Queries {
         return result;
     }
 
-    public String queryTemporary(String table) {
+    public static String queryTemporary(DataBase dataBase) {
         return  "SELECT Customer_ID, Policy_Type, Region " +
-                "FROM %s ".formatted(table) +
+                "FROM " + dataBase.getTableName() + " " +
                 "WHERE Policy_Type IS NOT NULL " +
                 "AND Premium IS NOT NULL " +
                 "AND Premium >= 250 " +
