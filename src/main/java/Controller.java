@@ -24,7 +24,9 @@ public class Controller {
     private String pathToCSV;
     private String pathToTemplate;
 
-    boolean useDataFromProject;
+    private boolean DataFromProjectUsed;
+
+    private boolean dataBaseExisting;
 
     private String resultFileName;
 
@@ -45,13 +47,13 @@ public class Controller {
             }
         } while (!temp.contains(input));
 
-        if(input.equals("yes")) {
-            useDataFromProject = true;
+        if (input.equals("yes")) {
+            DataFromProjectUsed = true;
             this.templateName = "template1.txt";
         }
 
         if (input.equals("no")) {
-            useDataFromProject = false;
+            DataFromProjectUsed = false;
             this.getUserData(scanner);
         }
 
@@ -61,14 +63,17 @@ public class Controller {
         scanner.close();
     }
 
-    private void getUserData (Scanner scanner) {
+    private void getUserData(Scanner scanner) {
         System.out.println("Name your database \nIf a database with the given name doesn't exist in project folder, a new database will be created: ");
         this.dataBaseName = scanner.nextLine();
 
         File dbFile = new File(dataBaseName);
         if (!dbFile.exists()) {
             System.out.println("Give path to your CSV-file");
+            this.dataBaseExisting = false;
             this.pathToCSV = scanner.nextLine();
+        } else {
+            this.dataBaseExisting = true;
         }
 
         System.out.println("Give your full template name with its extension \nIf a template with the given name doesn't exist in resources folder in the project, it will be added: ");
@@ -119,11 +124,16 @@ public class Controller {
         return templateName;
     }
 
-    public boolean getUseDataFromProject() {
-        return useDataFromProject;
+    public boolean isDataFromProjectUsed() {
+        return DataFromProjectUsed;
     }
 
     public String getResultFileName() {
         return resultFileName;
     }
+
+    public boolean isDataBaseExisting() {
+        return dataBaseExisting;
+    }
+
 }
