@@ -1,7 +1,7 @@
 # DIL2ONE-mini-project
 A Java-based demonstration project showcasing CSV paring, database management and template generation. This project was developed as a skill demonstration for the DIL2ONE initiative.
 
-The project:
+The project:<br>
 Reads input data from a CSV file
 Uses the data to build or parameterize an SQL query
 Executes the query
