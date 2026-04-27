@@ -48,7 +48,6 @@ public class Controller {
         if(input.equals("yes")) {
             useDataFromProject = true;
             this.templateName = "template1.txt";
-
         }
 
         if (input.equals("no")) {
