@@ -47,7 +47,8 @@ public class Controller {
 
         if(input.equals("yes")) {
             useDataFromProject = true;
-            this.chosenTemplate(scanner);
+            this.templateName = "template1.txt";
+
         }
 
         if (input.equals("no")) {
@@ -55,15 +56,10 @@ public class Controller {
             this.getUserData(scanner);
         }
 
-        System.out.println("Give name for the result file");
+        System.out.println("Name the result file");
         resultFileName = scanner.nextLine();
 
         scanner.close();
-    }
-
-    private void chosenTemplate(Scanner scanner) {
-        System.out.println("Name a template from the project to process: ");
-        this.templateName = scanner.nextLine();
     }
 
     private void getUserData (Scanner scanner) {
