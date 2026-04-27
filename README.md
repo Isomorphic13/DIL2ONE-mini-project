@@ -2,11 +2,11 @@
 A Java-based demonstration project showcasing CSV paring, database management and template generation. This project was developed as a skill demonstration for the DIL2ONE initiative.
 
 The project:<br>
-Reads input data from a CSV file<br>
-Uses the data to build a SQLite database<br>
-Executes a query<br>
-Passes the query result to a template engine for processing<br>
-Produces rendered output based on the template
+Reads input data from a CSV file.<br>
+Uses the data to build a SQLite database.<br>
+Executes a query.<br>
+Passes the query result to a template engine for processing.<br>
+Produces rendered output based on the template.
 
 The project has one prewritten template and a sql query with to it run. The user will be asked, if he wants to process hiw own data or 
 the prewritten one.
