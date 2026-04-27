@@ -3,8 +3,8 @@ A Java-based demonstration project showcasing CSV paring, database management an
 
 The project:<br>
 Reads input data from a CSV file<br>
-Uses the data to build or parameterize an SQL query<br>
-Executes the query<br>
+Uses the data to build a SQLite database<br>
+Executes a query<br>
 Passes the query result to a template engine for processing<br>
 Produces rendered output based on the template
 
