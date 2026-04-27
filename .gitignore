@@ -42,3 +42,5 @@ bin/
 ### Project ###
 DataBase
 *.tex
+*.txt
+insurance_dataset
